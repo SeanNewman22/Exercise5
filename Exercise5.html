@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>DOM Color Tweaker</title>
+	<style>
+		body {
+			font-family:"Trebuchet MS", Segoe, sans-serif;
+			margin:40px;
+			font-size: 1.2em;
+            background-color: antiquewhite;
+		}
+		div:first-child {
+			margin-bottom: 20px;
+		}
+        /*I set the position on the buttons to relative so I could move them around as I saw fit*/
+		button {
+            position: relative;
+            left:20px;
+			padding: 10px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+		}
+		#box {
+			width: 500px;
+			height: 38px;
+			margin-left: 20px;
+		}
+        #parent{
+            width: 600px;
+            height: 125px;
+        }
+        /* Here i set the 3 smaller divs to float left which aligns them together and then I modify them more to make them look closer to what the professor expects*/
+        .colorBox{
+            border-style: solid;
+            border-width: thin;
+            text-align: center;
+            float:left;
+            margin-left: 20px;
+            width: 90px;
+            padding-bottom: 5px;
+        }
+        input{
+            width:75px;
+        }
+	</style>
+</head>
+<body>
+    <h2>CSS Color Displayer!</h2>
+    
+    <p>Select a number from 0 through 255 for each color value:</p>
+    
+    <div id="parent">
+        
+        
+    <div class = "colorBox">
+        <p>Red:</p>
+        <input type="text" name="Red" id="Red">
+    </div>
+    
+    <div class = "colorBox">
+        <p>Green:</p>
+        <input type="text" name="Green" id="Green">
+    </div>
+    
+    <div class = "colorBox">
+        <p>Blue:</p>
+        <input type="text" name="Blue" id="Blue">
+    </div>
+    
+    
+	<button id="btn">Show me the color!</button>
+        <br/>
+    <button id="btn2">Clear all</button>
+    
+    
+    </div>
+    
+    
+    <input type= "text" id="box">
+	
+	<script>
+		
+	let btn = document.getElementById("btn");      //declaring element variables
+    let btn2 = document.getElementById("btn2");
+	let box = document.getElementById("box");
+
+	btn.addEventListener("click", clickHandler, false);        //adding event listeners to execute functions when the buttons are clicked
+    btn2.addEventListener("click", clearAllHandler, false);
+		
+	function clickHandler() {
+        let colorRed = 0;       //instantiate my color variables
+        let colorGreen = 0;
+        let colorBlue = 0;
+        
+        //this code here is my validation code that makes sure it is a number and that it falls within the accepted parameters, if it meets all the requirements then the variable is set to the user's number
+        if(Number.isNaN(document.getElementById("Red").value) == false && document.getElementById("Red").value <= 255 && document.getElementById("Red").value >= 0){
+            colorRed = document.getElementById("Red").value;    
+        }
+        //if the input does not fall within the accepted parameters then I execute my clearAllHandler function and alert them as to what number was incorrect
+        else{
+            clearAllHandler();
+            alert("You entered an invalid number for Red!");
+            return;
+        }
+        
+        if(Number.isNaN(document.getElementById("Green").value) == false && document.getElementById("Green").value <= 255 && document.getElementById("Green").value >= 0){
+            colorGreen = document.getElementById("Green").value;    
+        }
+        else{
+            clearAllHandler();
+            alert("You entered an invalid number for Green!");
+            return;
+        }
+        
+        if(Number.isNaN(document.getElementById("Blue").value) == false && document.getElementById("Blue").value <= 255 && document.getElementById("Blue").value >= 0){
+            colorBlue = document.getElementById("Blue").value;    
+        }
+        else{
+            clearAllHandler();
+            alert("You entered an invalid number for Blue!");
+            return;
+        }
+        
+        //this sets my div to the appropriate color if they make it through the validation
+		box.style.backgroundColor = "rgb(" + (colorRed) + ", " + (colorGreen) + ", " + (colorBlue) + ")";
+
+	}	
+        //this function sets the div box to white and removes all values present in the text boxes
+    function clearAllHandler(){
+        box.style.backgroundColor = "rgb(255,255,255)";
+        document.getElementById("Red").value = "";
+        document.getElementById("Green").value = "";
+        document.getElementById("Blue").value = "";
+    }
+		
+	</script>
+</body>
+</html>
